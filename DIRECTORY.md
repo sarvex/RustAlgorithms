@@ -5,6 +5,7 @@
     * [All Combination Of Size K](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/all_combination_of_size_k.rs)
     * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
   * Big Integer
+    * [Fast Factorial](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/fast_factorial.rs)
     * [Hello Bigmath](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/hello_bigmath.rs)
     * [Poly1305](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/poly1305.rs)
   * Ciphers
@@ -42,19 +43,19 @@
     * [Graph](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/graph.rs)
     * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/heap.rs)
     * [Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs)
+    * Probabilistic
+      * [Bloom Filter](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/bloom_filter.rs)
+      * [Count Min Sketch](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/count_min_sketch.rs)
     * [Queue](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/queue.rs)
     * [Rb Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/rb_tree.rs)
     * [Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree.rs)
+    * [Segment Tree Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree_recursive.rs)
     * [Stack Using Singly Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/stack_using_singly_linked_list.rs)
     * [Treap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/treap.rs)
     * [Trie](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/trie.rs)
     * [Union Find](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/union_find.rs)
-    * Probabilistic Data Structures
-      * [Count-min Sketch](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/count_min_sketch.rs)
-      * [Bloom Filter](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/bloom_filter.rs)
   * Dynamic Programming
     * [Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/coin_change.rs)
-    * [Edit Distance => See Levenshtein Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/levenshtein_distance.rs)
     * [Egg Dropping](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/egg_dropping.rs)
     * [Fibonacci](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/fibonacci.rs)
     * [Fractional Knapsack](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/fractional_knapsack.rs)
@@ -72,17 +73,17 @@
   * General
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
     * [Fisher Yates Shuffle](https://github.com/TheAlgorithms/Rust/blob/master/src/general/fisher_yates_shuffle.rs)
-    * [Genetic Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/general/genetic.rs)
+    * [Genetic](https://github.com/TheAlgorithms/Rust/blob/master/src/general/genetic.rs)
     * [Hanoi](https://github.com/TheAlgorithms/Rust/blob/master/src/general/hanoi.rs)
     * [Huffman Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/general/huffman_encoding.rs)
     * [Kmeans](https://github.com/TheAlgorithms/Rust/blob/master/src/general/kmeans.rs)
     * [Mex](https://github.com/TheAlgorithms/Rust/blob/master/src/general/mex.rs)
     * [Nqueens](https://github.com/TheAlgorithms/Rust/blob/master/src/general/nqueens.rs)
-    * [Two Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/general/two_sum.rs)
     * Permutations
-      * [Naive Implementation](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/naive.rs) 
-      * [Heap's algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/heap.rs)
-      * [Steinhaus-Johnson-Trotter algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/steinhaus-johnson-trotter.rs)
+      * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/heap.rs)
+      * [Naive](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/naive.rs)
+      * [Steinhaus Johnson Trotter](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/steinhaus_johnson_trotter.rs)
+    * [Two Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/general/two_sum.rs)
   * Geometry
     * [Closest Points](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/closest_points.rs)
   * Graph
@@ -113,6 +114,7 @@
     * [Amicable Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/amicable_numbers.rs)
     * [Armstrong Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/armstrong_number.rs)
     * [Baby Step Giant Step](https://github.com/TheAlgorithms/Rust/blob/master/src/math/baby_step_giant_step.rs)
+    * [Bell Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/bell_numbers.rs)
     * [Ceil](https://github.com/TheAlgorithms/Rust/blob/master/src/math/ceil.rs)
     * [Chinese Remainder Theorem](https://github.com/TheAlgorithms/Rust/blob/master/src/math/chinese_remainder_theorem.rs)
     * [Collatz Sequence](https://github.com/TheAlgorithms/Rust/blob/master/src/math/collatz_sequence.rs)
@@ -147,6 +149,7 @@
     * [Simpson Integration](https://github.com/TheAlgorithms/Rust/blob/master/src/math/simpson_integration.rs)
     * [Sine](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sine.rs)
     * [Square Root](https://github.com/TheAlgorithms/Rust/blob/master/src/math/square_root.rs)
+    * [Sum Of Digits](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sum_of_digits.rs)
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
     * [Zellers Congruence Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/zellers_congruence_algorithm.rs)
   * Navigation
