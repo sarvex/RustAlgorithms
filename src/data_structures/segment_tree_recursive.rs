@@ -1,12 +1,6 @@
-use std::cmp::min;
 use std::fmt::Debug;
 use std::ops::Range;
 
-/// This data structure implements a segment-tree that can efficiently answer range (interval) queries on arrays.
-/// It represents this array as a binary tree of merged intervals. From top to bottom: [aggregated value for the overall array], then [left-hand half, right hand half], etc. until [each individual value, ...]
-/// It is generic over a reduction function for each segment or interval: basically, to describe how we merge two intervals together.
-/// Note that this function should be commutative and associative
-///     It could be `std::cmp::min(interval_1, interval_2)` or `std::cmp::max(interval_1, interval_2)`, or `|a, b| a + b`, `|a, b| a * b`
 pub struct SegmentTree<T: Debug + Default + Ord + Copy> {
     len: usize,           // length of the represented
     tree: Vec<T>, // represents a binary tree of intervals as an array (as a BinaryHeap does, for instance)
@@ -14,20 +8,33 @@ pub struct SegmentTree<T: Debug + Default + Ord + Copy> {
 }
 
 impl<T: Debug + Default + Ord + Copy> SegmentTree<T> {
-    /// Builds a SegmentTree from an array and a merge function
     pub fn from_vec(arr: &[T], merge: fn(T, T) -> T) -> Self {
         let len = arr.len();
-        let mut buf: Vec<T> = vec![T::default(); 2 * len];
-        // Populate the tree bottom-up, from right to left
-        buf[len..(2 * len)].clone_from_slice(&arr[0..len]); // last len pos is the bottom of the tree -> every individual value
-        for i in (1..len).rev() {
-            // a nice property of this "flat" representation of a tree: the parent of an element at index i is located at index i/2
-            buf[i] = merge(buf[2 * i], buf[2 * i + 1]);
-        }
-        SegmentTree {
+        let mut sgtr = SegmentTree {
             len,
-            tree: buf,
+            tree: vec![T::default(); 4 * len],
             merge,
+        };
+        if len != 0 {
+            sgtr.build_recursive(arr, 1, 0..len, merge);
+        }
+        sgtr
+    }
+
+    fn build_recursive(
+        &mut self,
+        arr: &[T],
+        idx: usize,
+        range: Range<usize>,
+        merge: fn(T, T) -> T,
+    ) {
+        if range.end - range.start == 1 {
+            self.tree[idx] = arr[range.start];
+        } else {
+            let mid = (range.start + range.end) / 2;
+            self.build_recursive(arr, 2 * idx, range.start..mid, merge);
+            self.build_recursive(arr, 2 * idx + 1, mid..range.end, merge);
+            self.tree[idx] = merge(self.tree[2 * idx], self.tree[2 * idx + 1]);
         }
     }
 
@@ -35,44 +42,57 @@ impl<T: Debug + Default + Ord + Copy> SegmentTree<T> {
     /// returns None if the range is out of the array's boundaries (eg: if start is after the end of the array, or start > end, etc.)
     /// return the aggregate of values over this range otherwise
     pub fn query(&self, range: Range<usize>) -> Option<T> {
-        let mut l = range.start + self.len;
-        let mut r = min(self.len, range.end) + self.len;
-        let mut res = None;
-        // Check Wikipedia or other detailed explanations here for how to navigate the tree bottom-up to limit the number of operations
-        while l < r {
-            if l % 2 == 1 {
-                res = Some(match res {
-                    None => self.tree[l],
-                    Some(old) => (self.merge)(old, self.tree[l]),
-                });
-                l += 1;
-            }
-            if r % 2 == 1 {
-                r -= 1;
-                res = Some(match res {
-                    None => self.tree[r],
-                    Some(old) => (self.merge)(old, self.tree[r]),
-                });
-            }
-            l /= 2;
-            r /= 2;
+        self.query_recursive(1, 0..self.len, &range)
+    }
+
+    fn query_recursive(
+        &self,
+        idx: usize,
+        element_range: Range<usize>,
+        query_range: &Range<usize>,
+    ) -> Option<T> {
+        if element_range.start >= query_range.end || element_range.end <= query_range.start {
+            return None;
         }
-        res
+        if element_range.start >= query_range.start && element_range.end <= query_range.end {
+            return Some(self.tree[idx]);
+        }
+        let mid = (element_range.start + element_range.end) / 2;
+        let left = self.query_recursive(idx * 2, element_range.start..mid, query_range);
+        let right = self.query_recursive(idx * 2 + 1, mid..element_range.end, query_range);
+        match (left, right) {
+            (None, None) => None,
+            (None, Some(r)) => Some(r),
+            (Some(l), None) => Some(l),
+            (Some(l), Some(r)) => Some((self.merge)(l, r)),
+        }
     }
 
     /// Updates the value at index `idx` in the original array with a new value `val`
     pub fn update(&mut self, idx: usize, val: T) {
-        // change every value where `idx` plays a role, bottom -> up
-        // 1: change in the right-hand side of the tree (bottom row)
-        let mut idx = idx + self.len;
-        self.tree[idx] = val;
+        self.update_recursive(1, 0..self.len, idx, val);
+    }
 
-        // 2: then bubble up
-        idx /= 2;
-        while idx != 0 {
-            self.tree[idx] = (self.merge)(self.tree[2 * idx], self.tree[2 * idx + 1]);
-            idx /= 2;
+    fn update_recursive(
+        &mut self,
+        idx: usize,
+        element_range: Range<usize>,
+        target_idx: usize,
+        val: T,
+    ) {
+        println!("{:?}", element_range);
+        if element_range.start > target_idx || element_range.end <= target_idx {
+            return;
         }
+        if element_range.end - element_range.start <= 1 && element_range.start == target_idx {
+            println!("{:?}", element_range);
+            self.tree[idx] = val;
+            return;
+        }
+        let mid = (element_range.start + element_range.end) / 2;
+        self.update_recursive(idx * 2, element_range.start..mid, target_idx, val);
+        self.update_recursive(idx * 2 + 1, mid..element_range.end, target_idx, val);
+        self.tree[idx] = (self.merge)(self.tree[idx * 2], self.tree[idx * 2 + 1]);
     }
 }
 
